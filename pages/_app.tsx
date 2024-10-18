@@ -1,4 +1,6 @@
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
+import { Notifications } from '@mantine/notifications';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -8,6 +10,7 @@ import { theme } from '../theme';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider theme={theme}>
+      <Notifications />
       <Head>
         <title>Mantine Template</title>
         <meta
