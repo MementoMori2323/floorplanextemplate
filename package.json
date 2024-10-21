@@ -1,6 +1,6 @@
 {
   "name": "mantine-next-template",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -26,7 +26,7 @@
     "@next/bundle-analyzer": "^14.2.4",
     "@smplrspace/smplr-loader": "^2.26.0",
     "@supabase/supabase-js": "^2.45.5",
-    "@tabler/icons-react": "^3.6.0",
+    "@tabler/icons-react": "^3.19.0",
     "next": "14.2.4",
     "react": "18.3.1",
     "react-dom": "18.3.1"

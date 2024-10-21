@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import { Notifications } from '@mantine/notifications';
+import '../styles/App.css';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';

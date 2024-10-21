@@ -1,31 +1,72 @@
 'use client';
 
-import { AppShell, Burger, Group, Skeleton } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { AppShell, Burger, Group, Image, Loader } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react';
 
-export default function floorPlan() {
+import ArtixLogo from '@/components/images/Reportz Logo.png';
+import NavbarSection from '@/components/Navbar/Navbar';
+import SmplrSpaceViewer from './viewer';
+import { supabase } from '@/Supabase/supabaseclient';
+
+export default function FloorPlan() {
   const [opened, { toggle }] = useDisclosure();
+
+  // Authentication process to access website----------------------
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        setIsAuthenticated(true);
+      } else {
+        router.push('/');
+        notifications.show({
+          title: 'Error',
+          message: 'Login to authenticate', // Display the ID of the new report
+          color: 'red',
+          icon: <IconX />,
+        });
+      }
+      setLoading(false);
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
+  // -----------------------------------------------------------------
 
   return (
     <AppShell
       header={{ height: 60 }}
-      navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+      navbar={{ width: 100, breakpoint: 'sm', collapsed: { mobile: !opened } }}
       padding="md"
     >
       <AppShell.Header>
-        <Group h="100%" px="md">
+        <Group h="100%" px="md" justify="space-between">
+          <Image src={ArtixLogo.src} alt="Reportz Logo" style={{ height: 60 }} />
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
+      <AppShell.Navbar>
+        <NavbarSection />
       </AppShell.Navbar>
-      <AppShell.Main>Main</AppShell.Main>
+      <AppShell.Main>
+        <SmplrSpaceViewer />
+      </AppShell.Main>
     </AppShell>
   );
 }
