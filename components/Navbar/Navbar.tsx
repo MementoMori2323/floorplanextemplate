@@ -29,7 +29,7 @@ export default function NavbarSection() {
               <Button variant="subtle" color="black" rightSection={<IconBuilding size={20} />}>UPDATE OFFICES</Button>
             </Stack>
             <Stack>
-              <Button variant="subtle" color="black" rightSection={<IconLogout size={20} onClick={handleSignOut} />}>LOG OUT</Button>
+              <Button variant="subtle" color="black" rightSection={<IconLogout size={20} />} onClick={handleSignOut}>LOG OUT</Button>
             </Stack>
           </Stack>
         ) : (
@@ -57,7 +57,7 @@ export default function NavbarSection() {
                 </Tooltip>
             </Group>
             <Group justify="center">
-              <Tooltip label="Update Offices" transitionProps={{ transition: 'fade-right', duration: 300 }} position="right" offset={5}>
+              <Tooltip label="Log Out" transitionProps={{ transition: 'fade-right', duration: 300 }} position="right" offset={5}>
                 <ActionIcon size="xl" variant="subtle" color="black" onClick={handleSignOut}>
                   <IconLogout />
                 </ActionIcon>

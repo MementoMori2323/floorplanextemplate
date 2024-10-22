@@ -2,12 +2,17 @@
 
 import { AppShell, Burger, Group, Image } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useContext } from 'react'; // Import useContext
+import { UserDataContext } from '@/pages/_app'; // Adjust the path to where your App component is located
 import ArtixLogo from '@/components/images/Reportz Logo.png';
 import NavbarSection from '@/components/Navbar/Navbar';
 import SmplrSpaceViewer from './viewer';
 
 export default function FloorPlan() {
   const [opened, { toggle }] = useDisclosure();
+
+  // Use the context to get user metadata
+  const userMetadata = useContext(UserDataContext);
 
   return (
     <AppShell
