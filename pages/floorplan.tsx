@@ -6,7 +6,7 @@ import { useContext } from 'react'; // Import useContext
 import { UserDataContext } from '@/pages/_app'; // Adjust the path to where your App component is located
 import ArtixLogo from '@/components/images/Reportz Logo.png';
 import NavbarSection from '@/components/Navbar/Navbar';
-import SmplrSpaceViewer from './viewer';
+import SmplrSpaceViewer from '@/components/Viewer/viewer';
 
 export default function FloorPlan() {
   const [opened, { toggle }] = useDisclosure();
