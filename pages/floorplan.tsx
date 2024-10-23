@@ -2,8 +2,8 @@
 
 import { AppShell, Burger, Group, Image } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useContext } from 'react'; // Import useContext
-import { UserDataContext } from '@/pages/_app'; // Adjust the path to where your App component is located
+import { useContext } from 'react';
+import { UserDataContext } from '@/pages/_app';
 import ArtixLogo from '@/components/images/Reportz Logo.png';
 import NavbarSection from '@/components/Navbar/Navbar';
 import SmplrSpaceViewer from '@/components/Viewer/viewer';
