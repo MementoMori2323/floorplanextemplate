@@ -12,7 +12,7 @@ import { IconX } from '@tabler/icons-react';
 import { theme } from '../theme';
 import { supabase } from '@/Supabase/supabaseclient';
 
-// Context to provide user metadata across the app
+// Context to provide user metadata and role across the app
 export const UserDataContext = createContext(null);
 
 // Custom hook to manage session
@@ -62,6 +62,7 @@ const useSession = () => {
 export default function App({ Component, pageProps }: AppProps) {
   const { session, loading } = useSession(); // Use the session hook
   const [userMetadata, setUserMetadata] = useState(null);
+  const [myRole, setmyRole] = useState(null); // State to hold user role
 
   // Once session is loaded, fetch the user metadata
   useEffect(() => {
@@ -73,7 +74,21 @@ export default function App({ Component, pageProps }: AppProps) {
             console.error('Error fetching user data:', error);
           } else if (userData.user) {
             setUserMetadata(userData.user.user_metadata);
-            console.log('User metadata:', userData.user.user_metadata);
+            // console.log('User metadata:', userData.user.user_metadata);
+
+            // Fetch user role from profiles table
+            const { data: profileData, error: profileError } = await supabase
+              .from('profiles')
+              .select('role')
+              .eq('id', userData.user.id)
+              .single();
+
+            if (profileError) {
+              console.error('Error fetching profile data:', profileError);
+            } else {
+              setmyRole(profileData.role); // Set the user's role
+              // console.log('User role:', profileData.role);
+            }
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -101,7 +116,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Loader />
         </Center>
       ) : (
-        <UserDataContext.Provider value={userMetadata}>
+        <UserDataContext.Provider value={{ userMetadata, myRole }}>
           <Component {...pageProps} />
         </UserDataContext.Provider>
       )}
